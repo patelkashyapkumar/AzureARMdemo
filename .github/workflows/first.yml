@@ -1,10 +1,12 @@
 # This is a basic workflow to help you get started with Actions
 
-name: RPA
+name: first flow
 on: workflow_dispatch
 jobs:
   Copy-Downloadble:
     runs-on: "ubuntu-latest"
     steps:
-      - name: Run inline script
+      - name: Hello
         run: echo "Hello World"
+      - name: Good bye
+        run : echo "good bye!"
