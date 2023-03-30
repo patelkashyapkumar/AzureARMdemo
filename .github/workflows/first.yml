@@ -10,3 +10,5 @@ jobs:
         run: echo "Hello World"
       - name: Good bye
         run : echo "good bye!"
+      - name: downloadable
+        run: curl https://7-zip.org/a/7z2201-x64.exe --output 7z2201-x64.exe
