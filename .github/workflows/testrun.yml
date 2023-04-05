@@ -1,0 +1,49 @@
+# This is a basic workflow to help you get started with Actions
+
+name: RPA
+on: workflow_dispatch
+
+jobs:
+  Copy-Internet-Downloadble:
+    runs-on: "ubuntu-latest"
+    steps:
+      - name: print greetings
+        run: echo "start downloding"
+      - name: create root folder
+        run: mkdir RPA_Apps
+      - name: create sub folder
+        run: mkdir RPA_Apps/{"7-Zip","Google Chrome","Microsoft Edge","Microsoft365","SharePoint"}
+      - name: 7-Zip
+        run: curl https://7-zip.org/a/7z2201-x64.exe --output RPA_Apps/"7-Zip"/7z2201-x64.exe
+      - name: google-Chrome
+        run: curl https://dl.google.com/dl/chrome/install/googlechromestandaloneenterprise64.msi --output RPA_Apps/"Google Chrome"/googlechrome-96.0.4664.45.msi
+      - name: Office365
+        run: curl https://download.microsoft.com/download/2/7/A/27AF1BE6-DD20-4CB4-B154-EBAB8A7D4A7E/officedeploymenttool_16130-20218.exe --output RPA_Apps/"Microsoft365"/Office365.exe
+      - name: MS-Edge
+        run: curl https://msedge.sf.dl.delivery.mp.microsoft.com/filestreamingservice/files/68c5e2fb-3fa9-493b-a593-69ab63bd2651/MicrosoftEdgeEnterpriseX64.msi --output RPA_Apps/"Microsoft Edge"/MicrosoftEdgeEnterpriseX64.exe
+      - name: SharePoint
+        run: curl https://download.microsoft.com/download/B/3/D/B3DA6839-B852-41B3-A9DF-0AFA926242F2/sharepointclientcomponents_16-6906-1200_x64-en-us.msi --output RPA_Apps/"SharePoint"/sharepointclientcomponents_16-6518-1200_x64-en-us.msi
+      # - name: Moving other Installable
+      #   run: |
+      #     cp -r $(pwd)/RPA_Applications/"Blue Prism"/. $(pwd)/RPA_Apps/"Blue Prism"/
+      #     cp -r $(pwd)/RPA_Applications/"Adobe Acrobat Reader"/. $(pwd)/RPA_Apps/"Adobe Acrobat Reader"/
+      #     cp -r $(pwd)/RPA_Applications/"SAP"/. $(pwd)/RPA_Apps/"SAP"/
+      - name: Zipping RPA_Apps
+        run: zip -r RPA_Apps.zip RPA_Apps/
+      - name: show list
+        run: echo $(ls)
+      - name: Azure Login
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+      - name: Deploy to storage using CLI
+        uses: azure/CLI@v1
+        with:
+          azcliversion: latest
+          inlineScript: |
+            ls
+              #show azure account being used
+            az account show
+              #az storage account upload
+            az storage blob upload-batch --account-name bienocihtrpa -d 'bieno-cih-t-rpa-software' -s $(pwd)/RPA.zip
+
