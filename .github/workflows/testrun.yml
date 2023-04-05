@@ -47,5 +47,5 @@ jobs:
               #show azure account being used
             az account show
               #az storage account upload
-            az storage blob upload-batch --account-name bienocihtrpa -d 'bieno-cih-t-rpa-software' -s "Downloadable" --pattern *.zip
+            az storage blob upload-batch --account-name bienocihtrpa -d 'bieno-cih-t-rpa-software' -s "Downloadable" --pattern "*.zip"
 
