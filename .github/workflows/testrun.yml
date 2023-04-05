@@ -29,7 +29,7 @@ jobs:
       #     cp -r $(pwd)/RPA_Applications/"Adobe Acrobat Reader"/. $(pwd)/RPA_Apps/"Adobe Acrobat Reader"/
       #     cp -r $(pwd)/RPA_Applications/"SAP"/. $(pwd)/RPA_Apps/"SAP"/
       - name: Zipping RPA_Apps
-        run: zip -r "Downloadable"/RPA_Apps.zip RPA_Apps/
+        run: zip -r $(pwd)/"Downloadable"/RPA_Apps.zip RPA_Apps/
       - name: show list
         run: echo $(ls)
       - name: Azure Login
