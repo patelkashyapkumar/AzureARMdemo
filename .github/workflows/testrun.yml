@@ -30,8 +30,6 @@ jobs:
       #     cp -r $(pwd)/RPA_Applications/"SAP"/. $(pwd)/RPA_Apps/"SAP"/
       - name: Zipping RPA_Apps
         run: zip -r RPA_Apps.zip RPA_Apps/
-      - name: Move Zip File
-        run: mv *.zip $(pwd)/Downloadable
       - name: show list
         run: echo $(ls)
       - name: Azure Login
@@ -47,5 +45,5 @@ jobs:
               #show azure account being used
             az account show
               #az storage account upload
-            az storage blob upload-batch --account-name bienocihtrpa -d 'bieno-cih-t-rpa-software' -s "Downloadable" --pattern "*.zip"
+            az storage blob upload-batch --account-name bienocihtrpa -d 'bieno-cih-t-rpa-software' -s . --pattern "*.zip"
 
