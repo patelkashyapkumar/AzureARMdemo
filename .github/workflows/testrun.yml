@@ -12,7 +12,7 @@ jobs:
       - name: create root folder
         run: mkdir RPA_Apps
       - name: create sub folder
-        run: mkdir RPA_Apps/{"7-Zip","Google Chrome","Microsoft Edge","Microsoft365","SharePoint"}
+        run: mkdir RPA_Apps/{"7-Zip","Google Chrome","Microsoft Edge","Microsoft365","SharePoint","Downloadable"}
       - name: 7-Zip
         run: curl https://7-zip.org/a/7z2201-x64.exe --output RPA_Apps/"7-Zip"/7z2201-x64.exe
       - name: google-Chrome
@@ -29,7 +29,7 @@ jobs:
       #     cp -r $(pwd)/RPA_Applications/"Adobe Acrobat Reader"/. $(pwd)/RPA_Apps/"Adobe Acrobat Reader"/
       #     cp -r $(pwd)/RPA_Applications/"SAP"/. $(pwd)/RPA_Apps/"SAP"/
       - name: Zipping RPA_Apps
-        run: zip -r RPA_Apps.zip RPA_Apps/
+        run: zip -r "Downloadable"/RPA_Apps.zip RPA_Apps/
       - name: show list
         run: echo $(ls)
       - name: Azure Login
@@ -45,11 +45,5 @@ jobs:
               #show azure account being used
             az account show
               #az storage account upload
-            az storage blob upload
-              --account-name bienocihtrpa
-              --container-name bieno-cih-t-rpa-software
-              --name RPA_Apps.zip
-              --file RPA_Apps.zip
-              --auth-mode login
-            #az storage blob upload-batch --account-name bienocihtrpa -d 'bieno-cih-t-rpa-software' -s $(pwd)/RPA_Apps.zip
+            az storage blob upload-batch --account-name bienocihtrpa -d 'bieno-cih-t-rpa-software' -s $(pwd)/"Downloadable"/RPA_Apps.zip
 
