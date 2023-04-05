@@ -10,5 +10,15 @@ jobs:
         run: echo "Hello World"
       - name: Good bye
         run : echo "good bye!"
-      - name: downloadable
-        run: curl https://7-zip.org/a/7z2201-x64.exe --output 7z2201-x64.exe
+      - name: Azure Login
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+      - name: Deploy to storage using CLI
+        uses: azure/CLI@v1
+        with:
+          azcliversion: latest
+          inlineScript: |
+            ls
+              # show azure account being used
+            az account show
